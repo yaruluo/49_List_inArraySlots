@@ -10,14 +10,14 @@ Reference to first node in the list
 No-arg initializes the list with a null in the aforementioned reference
 
 #### Methods 
--Indexing method to follow the links from one node to the next for a certain number of steps (argument of 0 returns the first node)
--Method to determine length of list
--Method to insert node after a certain index
--Method to overwrite the contents of a node, leaving link to subsequent node intact
--Method to erase the contents of a node
--Method to remove a node entirely
--Method to add a node to the end of a list
--Method to add the contents of a list of nodes to the end of a list
+- Indexing method to follow the links from one node to the next for a certain number of steps (argument of 0 returns the first node)
+- Method to determine length of list
+- Method to insert node after a certain index
+- Method to overwrite the contents of a node, leaving link to subsequent node intact
+- Method to erase the contents of a node
+- Method to remove a node entirely
+- Method to add a node to the end of a list
+- Method to add the contents of a list of nodes to the end of a list
 
 ### Remarks
 Implementation of a node object will be necessary. The node object will contain a reference to some useful data and a reference to the next node.
