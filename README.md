@@ -1,6 +1,6 @@
 # Implementation of variable length lists in Java
 
-[ Yevgeniy Gorbachev, Yaru Luo ]
+[ Yevgeniy Gorbachev, Yaru Luo ] :octocat:
 
 ### Members for List_inArraySlots
 #### Fields
