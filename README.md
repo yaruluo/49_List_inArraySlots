@@ -7,7 +7,7 @@
 Reference to an integer array
 Integer that stores the last used index
 #### Constructors
-No-arg initializes a small (4-element) integer array, with no inidices used
+No-arg initializes a small (8-element) integer array, with no inidices used
 
 #### Methods 
 - toString that renders all elements up to (&inc) the last used index

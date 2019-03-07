@@ -6,9 +6,11 @@
 public class List_inArraySlots {
 
         private int[] refToArray;
+        private int last_index;//last used index
 
         public List_inArraySlots() {
             refToArray = new int[8];
+            last_index = -1;//Represents lack of use, is sufficient for the other methods to not break on empty lists
         }
 
 
@@ -16,7 +18,7 @@ public class List_inArraySlots {
             @return the number of elements in this list
          */
         public int size() {
-            return refToArray.length;
+            return last_index + 1;
         }
 
 
@@ -26,8 +28,8 @@ public class List_inArraySlots {
             */ 
         public String toString() {
             String result = "[";
-            for (int i: refToArray) {
-                result += i + ", ";
+            for (int i = 0; i <= last_index; i++) {//adds all elements up to the "last index"
+                result += refToArray[i] + ", ";
             }
             return result + "]";
         }
@@ -41,11 +43,12 @@ public class List_inArraySlots {
 
 
         public boolean add( int value) {
-          newli = new int[size() + 1];
-          for (int i = 0; i < size(); i++) {
-            newli[i] = refToArray[i];
-          }
-          newli[size() + 1] = value;
+            if (last_index + 1 < refToArray.length) {//check for space to store element
+                refToArray[++last_index] = value;
+                return true;
+            } else { // if there is not enough room
+                return false; //consider expansion to call the expand() method if necessary
+            }
         }
 
 
@@ -62,4 +65,11 @@ public class List_inArraySlots {
                             // So test using the println(), then comment it out.
                             // */
          // }
+
+         /*
+         suggestion from Yev: To expand, first initialize an array with twice the size of refToArray
+         For loop the elements from the current array into the expanded array
+         Given that there are no explicit calls to expand() in UserOfList,
+         reccomend invoation in the "else" block of add()
+         */
 }
