@@ -4,8 +4,8 @@
 
 ### Members for List_inArraySlots
 #### Fields
-Reference to an integer array
-Integer that stores the last used index
+- Reference to an integer array
+- Integer that stores the last used index
 #### Constructors
 No-arg initializes a small (8-element) integer array, with no inidices used
 
