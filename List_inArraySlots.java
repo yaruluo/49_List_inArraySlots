@@ -41,7 +41,7 @@ public class List_inArraySlots {
             @return true, in keeping with conventions yet to be discussed
          */
 
-
+ 
         public boolean add( int value) {
             if (last_index + 1 < refToArray.length) {//check for space to store element
                 refToArray[++last_index] = value;
