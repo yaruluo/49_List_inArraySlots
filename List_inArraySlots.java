@@ -29,7 +29,7 @@ public class List_inArraySlots {
         public String toString() {
             String result = "[";
             for (int i = 0; i <= last_index; i++) {//adds all elements up to the "last index"
-                result += refToArray[i] + ", ";
+                result += refToArray[i] + ",";
             }
             return result + "]";
         }
@@ -56,15 +56,22 @@ public class List_inArraySlots {
             Double the capacity of the List_inArraySlots, 
             preserving existing data
          */
-         // private void expand() {
-                // System.out.println( "expand... (for debugging)");
-                     // /* S.O.P. rules for debugging:
-                            // Working methods should be silent. But during 
-                            // development, the programmer must verify that 
-                            // this method is called when that is appropriate.
-                            // So test using the println(), then comment it out.
-                            // */
-         // }
+         private void expand() {
+                System.out.println( "expand... (for debugging)");
+
+		int[] oldArray = refToArray;
+		refToArray = new int[oldArray.length * 2];
+
+		for (int i = 0; i < oldArray.length; i++) {
+		    refToArray[i] = oldArray[i];
+        }
+                     /* S.O.P. rules for debugging:
+                            Working methods should be silent. But during 
+                            development, the programmer must verify that 
+                            this method is called when that is appropriate.
+                            So test using the println(), then comment it out.
+                            */
+         }
 
          /*
          suggestion from Yev: To expand, first initialize an array with twice the size of refToArray

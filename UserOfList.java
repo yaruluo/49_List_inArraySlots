@@ -1,39 +1,82 @@
-/** 
- Test list features.
+/**
+    Implement a list of integer elements, including
+    both data and operations.
  */
-public class UserOfList {
-    public static void main( String[] args ) {
-        List_inArraySlots list = new List_inArraySlots();
 
-        System.out.println( "number of elements: " + list.size() );
-        System.out.println( "empty list:" + list);
+public class List_inArraySlots {
 
-        /* Populate the list with elements, but with a small enough
-           number that we expect no invocation of expand().
-        */
-        int i = 0;
-        for( ; i < 5; i++ ) {
-            list.add( -i); // differs from index, but similar
-            System.out.println( "number of elements: " + list.size() );
+        private int[] refToArray;
+        private int last_index;//last used index
+
+        public List_inArraySlots() {
+            refToArray = new int[8];
+            last_index = -1;//Represents lack of use, is sufficient for the other methods to not break on empty lists
         }
-        System.out.println("initial population of " + list.size() + " elements:");
-        System.out.println( list);
+
+
+        /** 
+            @return the number of elements in this list
+         */
+        public int size() {
+            return last_index + 1;
+        }
+
+
+         /** 
+             @return a string representation of this list,
+             in [a, b, c,] format
+            */ 
+        public String toString() {
+            String result = "[";
+            for (int i = 0; i <= last_index; i++) {//adds all elements up to the "last index"
+                result += refToArray[i] + ",";
+            }
+            return result + "]";
+        }
+
         
-        // // Add enough elements that expansion is expected
-        // for( ; i < 15; i++ ) {
+        /** 
+            Appends @value to the end of this list.
             
-            // if( i == 10) System.out.println( "expansion expected");
-            
-            // list.add( -i);
-            // System.out.println( "number of elements: " + list.size() );
-        // }
-        // System.out.println("result of second population: " + list.size() + " elements:");
-        // System.out.println( list);
-        
-        // // Trust no one.
-        // for( ; i < 35; i++ ) 
-            // list.add( -i);
-        // System.out.println("after second expansion: " + list.size() + " elements:");
-        // System.out.println( list);
-    }
+            @return true, in keeping with conventions yet to be discussed
+         */
+
+
+        public boolean add( int value) {
+            if (last_index + 1 < refToArray.length) {//check for space to store element
+                refToArray[++last_index] = value;
+                return true;
+            } else { // if there is not enough room
+                return false; //consider expansion to call the expand() method if necessary
+            }
+        }
+
+
+        /** 
+            Double the capacity of the List_inArraySlots, 
+            preserving existing data
+         */
+         private void expand() {
+                System.out.println( "expand... (for debugging)");
+
+		int[] oldArray = refToArray;
+		refToArray = new int[oldArray.length * 2];
+
+		for (int i = 0; i < oldArray.length; i++) {
+		    refToArray[i] = oldArray[i];
+        }
+                     /* S.O.P. rules for debugging:
+                            Working methods should be silent. But during 
+                            development, the programmer must verify that 
+                            this method is called when that is appropriate.
+                            So test using the println(), then comment it out.
+                            */
+         }
+
+         /*
+         suggestion from Yev: To expand, first initialize an array with twice the size of refToArray
+         For loop the elements from the current array into the expanded array
+         Given that there are no explicit calls to expand() in UserOfList,
+         reccomend invoation in the "else" block of add()
+         */
 }
