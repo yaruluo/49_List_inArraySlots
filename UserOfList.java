@@ -37,9 +37,7 @@ public class UserOfList {
             list.add( -elemIndex);
         System.out.println("after second expansion: " + list.size() + " elements:");
         System.out.println( list + System.lineSeparator());
-
-        // --------- end of "code that worked in v0" ---------
-
+        
         // test accessor
         System.out.println( "sample elements from list:");
         for( elemIndex = 1; elemIndex < list.size(); elemIndex *= 2 ) {
@@ -48,10 +46,12 @@ public class UserOfList {
                               );
         }
 
-	 setTest(  8);
+        // test set
+        setTest(  8);
         setTest( 16);
         System.out.println();
- // test adding at a specified position
+
+        // test adding at a specified position
         addAtTest( 0, 29); // beginning of the list
 
         // end of the list using the new add method
@@ -64,23 +64,14 @@ public class UserOfList {
         addAtTest( 2, 23);
         addAtTest( 2, 23);
 
-    // test removing an element
         System.out.println("removing value " + list.remove( 6)
                           + ", leaving " + list.size() + " elements:");
         System.out.println( list);
         System.out.println(
             "expecting:" + System.lineSeparator()
           + "[29,0,23,23,23,19, NO -1 HERE! -2,-3...]");
-
-
-	
     }  // end of main()
-    
-    /**
-      Test the set() method, reporting and
-      changing the value at index @modifyAt.
-     */
-    
+
     private static void setTest( int modifyAt
                               ) {
         System.out.println(
@@ -89,10 +80,8 @@ public class UserOfList {
           + list.get( modifyAt)
           );
      }
-    /**
-      Test the 2-argument add( index, value) method.
-     */
-    private static void addAtTest( int addAt
+
+     private static void addAtTest( int addAt
                                  , int value
                                  ) {
         list.add( addAt, value);
