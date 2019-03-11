@@ -99,14 +99,12 @@ public class List_inArraySlots {
    * elements to the right (that is, increase the index associated with each).
    */
   public void add(int index, int value) {
-    int[] elements_new = new int[1 + filledElements];
+    int[] elements_new = new int[filledElements * 2];
     //populate the first few elements
     int i = 0;
     for ( ; i < index; i++) {
       elements_new[i] = elements[i];
     }
-    System.out.println(Arrays.toString(elements_new));
-    System.out.println(Arrays.toString(elements));
     elements_new[i] = value;
     i++;
     for ( ; i < filledElements + 1; i++) {
