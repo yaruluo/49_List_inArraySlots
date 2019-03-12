@@ -79,8 +79,6 @@ public class List_inArraySlots {
     return elements[index];
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
       Appends @value to the end of this list.
 =======
@@ -90,25 +88,7 @@ public class List_inArraySlots {
    * Shift the element currently at that position (if any) and any subsequent
    * elements to the right (that is, increase the index associated with each).
    */
-  public void add(int index, int value) {
-    int[] elements_new = new int[1 + filledElements];
-    //populate the first few elements
-    int i = 0;
-    for ( ; i < index; i++) {
-      elements_new[i] = elements[i];
-    }
-    System.out.println(Arrays.toString(elements_new));
-    System.out.println(Arrays.toString(elements));
-    elements_new[i] = value;
-    i++;
-    for ( ; i < filledElements + 1; i++) {
-      elements_new[i] = elements[i - 1];
-    }
-    elements = elements_new;
-    filledElements++;
-  }
->>>>>>> parent of 1887a01... Updated List_iAS.add(int, int) to share behavior with yaruluo's add(int,int)
-=======
+
   /**
    * Set value at @index to @newValue
    * 
@@ -121,8 +101,6 @@ public class List_inArraySlots {
     return old;
     
   }
->>>>>>> parent of 9832c10... Updated User and List_iAS to 51 skeletons
-
   /**
    * Insert @value at position @index in this list.
    * 
@@ -159,18 +137,14 @@ public class List_inArraySlots {
    * @return the value that was removed from the list
    */
   public int remove(int index) {
-    int[] elements_new = new int[filledElements - 1];
-    int i = 0;
     // populate first few elements
-    for ( ; i < index; i++) {
-      elements_new[i] = elements[i];
+    
+    int deletee = elements[index];
+    index++;
+    for ( ; index < filledElements; index++) {
+      elements[index - 1] = elements[index];
     }
-    int deletee = elements[i];
-    i++;
-    for ( ; i < filledElements; i++) {
-      elements_new[i - 1] = elements[i];
-    }
-    elements = elements_new;
+    elements[index] = 0;
     filledElements--;
     return deletee;
   }
