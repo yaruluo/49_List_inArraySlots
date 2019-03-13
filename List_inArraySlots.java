@@ -3,10 +3,27 @@
   both data and operations.
  */
 
+/*Note from Yevgeniy:
+  Each element i has integer, double, and String 'components'.
+  typeOfElements stores which of the components is relevant.
+*/
+
 public class List_inArraySlots {
 
-    private int[] elements;     // container for the elements of the list
+    private int[]    intElements;
+    private double[] doubleElements;
+    private String[] stringElements;
     private int filledElements; // the number of elements in this list
+    
+    /* type identifier for each element
+       That is, typeOfElements[i] == 0 means element i is an integer;
+                                     1 means element i is a double;
+                                     2 means element i is a String.
+        Optional extra education in programming (not comp sci):
+            replace these "magic numbers" with an "enumerated type".
+     */
+
+    private int[] typeOfElements;
 
     private static final int INITIAL_CAPACITY = 10;
 
@@ -14,8 +31,11 @@ public class List_inArraySlots {
       Construct an empty list with a small initial capacity.
      */
     public List_inArraySlots() {
-        elements = new int[ INITIAL_CAPACITY];
-        // filledElements has been initialized to the desired value, 0
+      intElements = new int[ INITIAL_CAPACITY];
+      doubleElements = new double[ INITIAL_CAPACITY];
+      stringElements = new String[ INITIAL_CAPACITY];
+      filledElements = 0;
+      typeOfElements = new int[ INITIAL_CAPACITY];
     }
 
 
@@ -23,7 +43,7 @@ public class List_inArraySlots {
       @return the number of elements in this list
      */
     public int size() {
-        return filledElements;
+      return filledElements;
     }
 
 
@@ -32,102 +52,85 @@ public class List_inArraySlots {
        in [a,b,c,] format
       */
     public String toString() {
-        String result = "[";
-        for( int elemIndex = 0; elemIndex < filledElements; elemIndex++)
-            result += elements[ elemIndex] + ",";
-        return result + "]";
+	String returnedStr = new String();
+	returnedStr = "[";
+	for( int i = 0; i < filledElements; i++) {
+	    if( typeOfElements[ i] == 0) 
+		returnedStr += intElements[ i] + ", ";
+	    if( typeOfElements[ i] == 1) 
+		returnedStr += doubleElements[ i] + ", ";
+	    if( typeOfElements[ i] == 2) 
+		returnedStr += stringElements[ i] + ", ";
+	}
+	returnedStr += "]";
+	return returnedStr;
     }
-
+      //For each element in typeOfElements:
+      //return the index of the correct one of the three arrays that store elements.
 
     /**
       Appends @value to the end of this list.
 
       @return true, in keeping with conventions yet to be discussed
      */
-     public boolean add( int value) {
-         // expand if necessary
-         if( filledElements == elements.length) expand();
+    
+     public boolean add( int type   // same meaning as in typeOfElements
+                       , int intValue
+                       , double doubleValue
+                       , String stringValue
+                       ) {
+	 if ( filledElements == intElements.length)
+	     expand();
 
-         elements[ filledElements] = value;
-         filledElements++;
-         // idiomatic version: elements[ filledElements++] = value;
-        return true;
-}
+	 intElements[ filledElements] = intValue;
+	 doubleElements[ filledElements] = doubleValue;
+	 stringElements[ filledElements] = stringValue;
+
+	 typeOfElements[ filledElements] = type;
+
+	 filledElements++;
+	 return true;
+     }
 
 
     /**
       Double the capacity of the List_inArraySlots,
       preserving existing data.
      */
-     private void expand() {
-        System.out.println( "expand... (for debugging)");
-           /* S.O.P. rules for debugging:
-              Working methods should be silent. But during
-              development, the programmer must verify that
-              this method is called when that is appropriate.
-              So test using the println(), then comment it out.
-              */
-        int[] bigger = new int[ elements.length * 2];
-        for( int elemIndex = 0; elemIndex < filledElements; elemIndex++)
-            bigger[ elemIndex] = elements[ elemIndex];
-        elements = bigger;
-     }
-
-    // --------- end of "code that worked in v0" ---------
-
     
-    /**
-      accessor
-      @return element @index from this list
-      precondition: @index is within the bounds of the array.
-          (Having warned the user about this precondition,
-           you should NOT complicate your code to check
-           whether user violated the condition.)
-     */
-    public int get( int index ) {
-	return elements[ index];
+    private void expand() {
+	System.out.println( "expand... (for debugging)");
+	int oldL = intElements.length;
+	int[] expanded_ints = new int[2 * oldL];
+	for (int i = 0; i < filledElements; i++) {
+	    expanded_ints[i] = intElements[i];
+	}
+	intElements = expanded_ints;
+	double[] expanded_doubles = new double[2 * oldL];
+	for (int i = 0; i < filledElements; i++) {
+	    expanded_doubles[i] = doubleElements[i];
+	}
+	doubleElements = expanded_doubles;
+	String[] expanded_Strings = new String[2 * oldL];
+	for (int i = 0; i < filledElements; i++) {
+	    expanded_Strings[i] = stringElements[i];
+	}
+	stringElements = expanded_Strings;
+      
+	int[] expanded_types = new int[2 * oldL];
+	for (int i = 0; i < filledElements; i++) {
+	    expanded_types[i] = typeOfElements[i];
+	}
+	typeOfElements = expanded_types;
+   }
+
+    public Element get( int index){
+	Element val = new Element();
+	val.type = typeOfElements[ index];
+	val.intValue = intElements[ index];
+	val.doubleValue = doubleElements[ index];
+	val.stringValue = stringElements[ index];
+	return val;
     }
-
-    /**
-      Set value at @index to @newValue
-      @return old value at @index
-      @precondition: @index is within the bounds of this list.
-     */
-    public int set( int index, int newValue ) {
-	int oldVal = elements[ index];
-	elements[ index] = newValue;
-	System.out.println( "old value: ");
-	return oldVal;
-    }
-
-    /**
-      Insert @value at position @index in this list.
-      Shift the element currently at that position (if any)
-      and any subsequent elements to the right
-      (that is, increase the index associated with each).
-     */
-     public void add( int index, int value) {
-	 // expand if necessary
-	 if( filledElements == elements.length) expand();
-
-	 for( int elemIndex = filledElements; elemIndex > index; elemIndex--)
-	     elements[ elemIndex] = elements[ elemIndex - 1];
-	 filledElements++;
-	 elements[ index] = value;
-     }
-
-    /**
-      Remove the element at position @index in this list.
-      Shift any subsequent elements to the left (that is,
-      decrease the index associated with each).
-      @return the value that was removed from the list
-     */
-     public int remove( int index) {
-	 int removedVal = elements[ index];
-	 for( int elemIndex = index; elemIndex < filledElements - 1; elemIndex++)
-	     elements[ elemIndex] = elements[ elemIndex + 1];
-	 filledElements--;
-	 return removedVal;
-     }
     
 }
